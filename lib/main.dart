@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get_ip/get_ip.dart';
 import 'package:streamdeck/screens/deck_screen.dart';
 import 'package:streamdeck/screens/network_testing.dart';
 import 'package:web_socket_channel/io.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  String ipAddress = await GetIp.ipAddress;
+  runApp(MyApp(ipAddress));
 }
 
 class MyApp extends StatelessWidget {
+  MyApp(this.ipAddress);
+  final String ipAddress;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +21,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: NetworkTesting() //DeckScreen(),
+        home: NetworkTesting(
+          ipAddress: ipAddress,
+        ) //DeckScreen(),
 
         );
   }
