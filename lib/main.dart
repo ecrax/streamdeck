@@ -4,14 +4,11 @@ import 'package:streamdeck/screens/connect_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  String ipAddress = await GetIp.ipAddress;
-  runApp(MyApp(ipAddress));
+  //String ipAddress = await GetIp.ipAddress;
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp(this.ipAddress);
-  final String ipAddress;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +16,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ConnectScreen() //NetworkTesting(ipAddress: ipAddress,) ,
+        home: ConnectScreen() //NetworkTesting(ipAddress: ipAddress,)
 
         );
   }
