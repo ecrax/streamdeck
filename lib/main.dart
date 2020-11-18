@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_ip/get_ip.dart';
-import 'package:streamdeck/screens/deck_screen.dart';
-import 'package:streamdeck/screens/network_testing.dart';
-import 'package:web_socket_channel/io.dart';
+import 'package:streamdeck/screens/connect_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +19,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: NetworkTesting(
-          ipAddress: ipAddress,
-        ) //DeckScreen(),
+        home: ConnectScreen() //NetworkTesting(ipAddress: ipAddress,) ,
 
         );
   }

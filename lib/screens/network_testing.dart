@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/io.dart';
 
 class NetworkTesting extends StatefulWidget {
   NetworkTesting({this.socket, this.ipAddress});

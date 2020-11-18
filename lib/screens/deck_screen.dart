@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:streamdeck/widgets/deck_button.dart';
+import 'package:streamdeck/utils/enums.dart';
 
 class DeckScreen extends StatelessWidget {
-  const DeckScreen({Key key}) : super(key: key);
+  const DeckScreen({Key key, @required this.socket}) : super(key: key);
+
+  final Socket socket;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +15,13 @@ class DeckScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: Container(
-            margin: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/BG.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            padding: EdgeInsets.all(16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -21,48 +32,37 @@ class DeckScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       DeckButton(
-                        text: "1",
+                        id: 1,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "1",
                       ),
                       DeckButton(
-                        text: "4",
+                        id: 4,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "4",
                       ),
                       DeckButton(
-                        text: "7",
+                        id: 7,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "7",
                       ),
                       DeckButton(
-                        text: "10",
+                        id: 10,
+                        function: Functionality.switchScene,
+                        socket: socket,
                       ),
                       DeckButton(
-                        text: "13",
+                        id: 13,
+                        function: Functionality.switchScene,
+                        socket: socket,
                       ),
                       DeckButton(
-                        text: "16",
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      DeckButton(
-                        text: "2",
-                      ),
-                      DeckButton(
-                        text: "5",
-                      ),
-                      DeckButton(
-                        text: "8",
-                      ),
-                      DeckButton(
-                        text: "11",
-                      ),
-                      DeckButton(
-                        text: "14",
-                      ),
-                      DeckButton(
-                        text: "17",
+                        id: 16,
+                        function: Functionality.switchScene,
+                        socket: socket,
                       ),
                     ],
                   ),
@@ -73,22 +73,78 @@ class DeckScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       DeckButton(
-                        text: "3",
+                        id: 2,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "2",
                       ),
                       DeckButton(
-                        text: "6",
+                        id: 5,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "5",
                       ),
                       DeckButton(
-                        text: "9",
+                        id: 8,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "8",
                       ),
                       DeckButton(
-                        text: "12",
+                        id: 11,
+                        function: Functionality.switchScene,
+                        socket: socket,
                       ),
                       DeckButton(
-                        text: "15",
+                        id: 14,
+                        function: Functionality.switchScene,
+                        socket: socket,
                       ),
                       DeckButton(
-                        text: "18",
+                        id: 17,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      DeckButton(
+                        id: 3,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "3",
+                      ),
+                      DeckButton(
+                        id: 6,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "6",
+                      ),
+                      DeckButton(
+                        id: 9,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                        addData: "9",
+                      ),
+                      DeckButton(
+                        id: 12,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                      ),
+                      DeckButton(
+                        id: 15,
+                        function: Functionality.switchScene,
+                        socket: socket,
+                      ),
+                      DeckButton(
+                        id: 18,
+                        function: Functionality.switchScene,
+                        socket: socket,
                       ),
                     ],
                   ),
