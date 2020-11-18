@@ -17,7 +17,7 @@ class DeckScreen extends StatelessWidget {
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/BG.png"),
+                image: AssetImage("assets/images/BG.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
