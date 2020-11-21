@@ -11,7 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:streamdeck/main.dart';
 
 void main() {
-  testWidgets('Button smoke test', (WidgetTester tester) async {
+  /* testWidgets('Button smoke test', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
-  });
+  }); */
 }
