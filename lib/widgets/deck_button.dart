@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamdeck/utils/enums.dart';
 
 class DeckButton extends StatefulWidget {
@@ -69,6 +70,8 @@ class _DeckButtonState extends State<DeckButton> {
         currentImage = images["unmute"];
       } else if (currentFunction == Functionality.hideSource && activated) {
         currentImage = images["unhide"];
+      } else if (currentFunction == Functionality.disconnect) {
+        currentImage = images["disconnect"];
       }
     });
   }
@@ -107,14 +110,19 @@ class _DeckButtonState extends State<DeckButton> {
                       ),
                       actions: [
                         FlatButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (tempData != null) {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
                               setState(() {
                                 currentFunction = Functionality.muteAudio;
                                 additinalData = tempData;
                                 tempData = null;
                                 _setImages();
                               });
+                              await prefs.setStringList(
+                                  "${widget.id.toString()}",
+                                  ["muteAudio", additinalData.toString()]);
                             } else {
                               // Warn user
                             }
@@ -177,13 +185,18 @@ class _DeckButtonState extends State<DeckButton> {
                       ),
                       actions: [
                         FlatButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
                             setState(() {
                               currentFunction = Functionality.switchScene;
                               additinalData = tempData ?? "1";
                               tempData = null;
                               _setImages();
                             });
+
+                            await prefs.setStringList("${widget.id.toString()}",
+                                ["switchScene", additinalData.toString()]);
 
                             Navigator.pop(context);
                           },
@@ -229,14 +242,19 @@ class _DeckButtonState extends State<DeckButton> {
                       ),
                       actions: [
                         FlatButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (tempData != null) {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
                               setState(() {
                                 currentFunction = Functionality.hideSource;
                                 additinalData = tempData;
                                 tempData = null;
                                 _setImages();
                               });
+                              await prefs.setStringList(
+                                  "${widget.id.toString()}",
+                                  ["hideSource", additinalData.toString()]);
                             } else {
                               // Warn user
                             }
@@ -257,6 +275,19 @@ class _DeckButtonState extends State<DeckButton> {
                   },
                 );
               });
+            },
+          ),
+          FocusedMenuItem(
+            title: Text("Disconnect"),
+            trailingIcon: Icon(Icons.phonelink_off),
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              setState(() {
+                currentFunction = Functionality.disconnect;
+                _setImages();
+              });
+              await prefs
+                  .setStringList("${widget.id.toString()}", ["disconnect", ""]);
             },
           ),
         ],
@@ -288,6 +319,9 @@ class _DeckButtonState extends State<DeckButton> {
           } else if (currentFunction == Functionality.switchScene &&
               additinalData != null) {
             socket.write("scene${(int.parse(additinalData) - 1).toString()}");
+          } else if (currentFunction == Functionality.disconnect) {
+            socket.close(); // Server is still online
+            Navigator.pop(context);
           }
 
           _setImages();
@@ -302,7 +336,8 @@ class _DeckButtonState extends State<DeckButton> {
           margin: EdgeInsets.all(7),
           decoration: BoxDecoration(
             //color: activated ? Colors.lightBlue : Colors.red,
-            borderRadius: BorderRadius.circular(8),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
               image: currentImage,
               fit: BoxFit.cover,

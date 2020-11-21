@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get_ip/get_ip.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamdeck/screens/connect_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //String ipAddress = await GetIp.ipAddress;
-  runApp(MyApp());
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  runApp(MyApp(prefs));
 }
 
 class MyApp extends StatelessWidget {
+  MyApp(this.p);
+
+  final SharedPreferences p;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +22,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ConnectScreen() //NetworkTesting(ipAddress: ipAddress,)
+        home: ConnectScreen(p) //NetworkTesting(ipAddress: ipAddress,)
 
         );
   }

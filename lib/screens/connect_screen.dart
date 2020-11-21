@@ -1,9 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:streamdeck/screens/deck_screen.dart';
 
 class ConnectScreen extends StatefulWidget {
+  ConnectScreen(this.p);
+
+  final SharedPreferences p;
+
   @override
   _ConnectScreenState createState() => _ConnectScreenState();
 }
@@ -13,6 +18,12 @@ class _ConnectScreenState extends State<ConnectScreen> {
 
   String ip;
   String port;
+
+  @override
+  void dispose() {
+    socket.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +81,10 @@ class _ConnectScreenState extends State<ConnectScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DeckScreen(socket: socket),
+                        builder: (context) => DeckScreen(
+                          socket: socket,
+                          prefs: widget.p,
+                        ),
                       ),
                     );
                   }
