@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
 import 'package:streamdeck/utils/enums.dart';
 
 class DeckButton extends StatefulWidget {
@@ -110,18 +110,16 @@ class _DeckButtonState extends State<DeckButton> {
                       ),
                       actions: [
                         FlatButton(
-                          onPressed: () async {
+                          onPressed: () {
                             if (tempData != null) {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
                               setState(() {
                                 currentFunction = Functionality.muteAudio;
                                 additinalData = tempData;
                                 tempData = null;
                                 _setImages();
                               });
-                              await prefs.setStringList(
-                                  "${widget.id.toString()}",
+
+                              Hive.box("prefs").put("${widget.id.toString()}",
                                   ["muteAudio", additinalData.toString()]);
                             } else {
                               // Warn user
@@ -185,9 +183,7 @@ class _DeckButtonState extends State<DeckButton> {
                       ),
                       actions: [
                         FlatButton(
-                          onPressed: () async {
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
+                          onPressed: () {
                             setState(() {
                               currentFunction = Functionality.switchScene;
                               additinalData = tempData ?? "1";
@@ -195,8 +191,11 @@ class _DeckButtonState extends State<DeckButton> {
                               _setImages();
                             });
 
-                            await prefs.setStringList("${widget.id.toString()}",
+                            Hive.box("prefs").put("${widget.id.toString()}",
                                 ["switchScene", additinalData.toString()]);
+
+                            print(widget.id);
+                            print(Hive.box("prefs").get(widget.id.toString()));
 
                             Navigator.pop(context);
                           },
@@ -244,16 +243,14 @@ class _DeckButtonState extends State<DeckButton> {
                         FlatButton(
                           onPressed: () async {
                             if (tempData != null) {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
                               setState(() {
                                 currentFunction = Functionality.hideSource;
                                 additinalData = tempData;
                                 tempData = null;
                                 _setImages();
                               });
-                              await prefs.setStringList(
-                                  "${widget.id.toString()}",
+
+                              Hive.box("prefs").put("${widget.id.toString()}",
                                   ["hideSource", additinalData.toString()]);
                             } else {
                               // Warn user
@@ -280,14 +277,15 @@ class _DeckButtonState extends State<DeckButton> {
           FocusedMenuItem(
             title: Text("Disconnect"),
             trailingIcon: Icon(Icons.phonelink_off),
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
+            onPressed: () {
               setState(() {
                 currentFunction = Functionality.disconnect;
+                additinalData = "";
                 _setImages();
               });
-              await prefs
-                  .setStringList("${widget.id.toString()}", ["disconnect", ""]);
+
+              Hive.box("prefs")
+                  .put("${widget.id.toString()}", ["disconnect", ""]);
             },
           ),
         ],

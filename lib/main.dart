@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:streamdeck/screens/connect_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  runApp(MyApp(prefs));
+  await Hive.initFlutter();
+  await Hive.openBox('prefs');
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp(this.p);
-
-  final SharedPreferences p;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ConnectScreen(p),
+      home: ConnectScreen(),
     );
   }
 }

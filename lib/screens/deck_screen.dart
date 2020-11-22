@@ -1,32 +1,32 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
 import 'package:streamdeck/widgets/deck_button.dart';
 import 'package:streamdeck/utils/enums.dart';
 
 class DeckScreen extends StatefulWidget {
-  const DeckScreen({Key key, @required this.socket, @required this.prefs})
-      : super(key: key);
+  const DeckScreen({
+    Key key,
+    @required this.socket,
+  }) : super(key: key);
 
   final Socket socket;
-  final SharedPreferences prefs;
 
   @override
   _DeckScreenState createState() => _DeckScreenState();
 }
 
 class _DeckScreenState extends State<DeckScreen> {
-  SharedPreferences prefs;
-
   @override
   void initState() {
     super.initState();
-    prefs = widget.prefs;
   }
 
   Map<String, dynamic> loadData(int id) {
-    List<String> data = prefs.getStringList("$id");
+    List<String> data = Hive.box("prefs").get(id.toString());
+
+    print(data);
 
     Functionality functionality;
     String additionalData;
@@ -101,18 +101,24 @@ class _DeckScreenState extends State<DeckScreen> {
                       ),
                       DeckButton(
                         id: 10,
-                        function: Functionality.switchScene,
+                        function: loadData(10)["functionality"] ??
+                            Functionality.switchScene,
                         socket: widget.socket,
+                        addData: loadData(10)["additionalData"] ?? "10",
                       ),
                       DeckButton(
                         id: 13,
-                        function: Functionality.switchScene,
+                        function: loadData(13)["functionality"] ??
+                            Functionality.switchScene,
                         socket: widget.socket,
+                        addData: loadData(13)["additionalData"] ?? "13",
                       ),
                       DeckButton(
                         id: 16,
-                        function: Functionality.switchScene,
+                        function: loadData(16)["functionality"] ??
+                            Functionality.switchScene,
                         socket: widget.socket,
+                        addData: loadData(16)["additionalData"] ?? "16",
                       ),
                     ],
                   ),
@@ -145,18 +151,24 @@ class _DeckScreenState extends State<DeckScreen> {
                       ),
                       DeckButton(
                         id: 11,
-                        function: Functionality.switchScene,
+                        function: loadData(11)["functionality"] ??
+                            Functionality.switchScene,
                         socket: widget.socket,
+                        addData: loadData(11)["additionalData"] ?? "11",
                       ),
                       DeckButton(
                         id: 14,
-                        function: Functionality.switchScene,
+                        function: loadData(14)["functionality"] ??
+                            Functionality.switchScene,
                         socket: widget.socket,
+                        addData: loadData(14)["additionalData"] ?? "14",
                       ),
                       DeckButton(
                         id: 17,
-                        function: Functionality.switchScene,
+                        function: loadData(17)["functionality"] ??
+                            Functionality.switchScene,
                         socket: widget.socket,
+                        addData: loadData(17)["additionalData"] ?? "17",
                       ),
                     ],
                   ),
@@ -189,13 +201,17 @@ class _DeckScreenState extends State<DeckScreen> {
                       ),
                       DeckButton(
                         id: 12,
-                        function: Functionality.switchScene,
+                        function: loadData(12)["functionality"] ??
+                            Functionality.switchScene,
                         socket: widget.socket,
+                        addData: loadData(12)["additionalData"] ?? "12",
                       ),
                       DeckButton(
                         id: 15,
-                        function: Functionality.switchScene,
+                        function: loadData(15)["functionality"] ??
+                            Functionality.switchScene,
                         socket: widget.socket,
+                        addData: loadData(15)["additionalData"] ?? "15",
                       ),
                       DeckButton(
                         id: 18,
