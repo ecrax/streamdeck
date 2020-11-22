@@ -26,7 +26,7 @@ class _DeckScreenState extends State<DeckScreen> {
   Map<String, dynamic> loadData(int id) {
     List<String> data = Hive.box("prefs").get(id.toString());
 
-    print(data);
+    // print(data);
 
     Functionality functionality;
     String additionalData;

@@ -324,11 +324,11 @@ class _DeckButtonState extends State<DeckButton> {
 
           _setImages();
 
-          print("Functionality: $currentFunction");
+          /* print("Functionality: $currentFunction");
           print("Additional Data: $additinalData");
           print("Id: ${widget.id}");
           print("Activated: $activated");
-          print("\n");
+          print("\n"); */
         },
         child: Container(
           margin: EdgeInsets.all(7),
