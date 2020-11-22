@@ -215,9 +215,10 @@ class _DeckScreenState extends State<DeckScreen> {
                       ),
                       DeckButton(
                         id: 18,
-                        function: Functionality.disconnect,
+                        function: loadData(18)["functionality"] ??
+                            Functionality.disconnect,
                         socket: widget.socket,
-                        addData: "",
+                        addData: loadData(18)["additionalData"] ?? "",
                       ),
                     ],
                   ),
