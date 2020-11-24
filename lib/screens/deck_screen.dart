@@ -18,15 +18,8 @@ class DeckScreen extends StatefulWidget {
 }
 
 class _DeckScreenState extends State<DeckScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   Map<String, dynamic> loadData(int id) {
     List<String> data = Hive.box("prefs").get(id.toString());
-
-    // print(data);
 
     Functionality functionality;
     String additionalData;

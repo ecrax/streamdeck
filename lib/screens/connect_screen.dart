@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:streamdeck/screens/deck_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConnectScreen extends StatefulWidget {
   @override
@@ -24,20 +25,35 @@ class _ConnectScreenState extends State<ConnectScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.grey[900],
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("IP Address:"),
-                    TextField(
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {
-                        ip = value;
-                      },
+                    SizedBox(
+                      height: 32,
+                    ),
+                    Text(
+                      "Welcome back!",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 32,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Connect to the server",
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                      ),
                     ),
                   ],
                 ),
@@ -46,43 +62,139 @@ class _ConnectScreenState extends State<ConnectScreen> {
                 height: 32,
               ),
               Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                decoration: BoxDecoration(
+                  color: Colors.grey[700],
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Port:"),
-                    TextField(
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {
-                        port = value;
-                      },
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text(
+                      "IP Address:",
+                      style: TextStyle(
+                        color: Colors.grey[300],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "e.g. 192.186.420.69",
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          ip = value;
+                        },
+                      ),
                     ),
                   ],
                 ),
               ),
               SizedBox(
-                height: 32,
+                height: 16,
               ),
-              RaisedButton(
-                child: Text(
-                  "Connect",
-                  style: TextStyle(
-                    color: Colors.white,
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[700],
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text(
+                      "Port:",
+                      style: TextStyle(
+                        color: Colors.grey[300],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "e.g. 6969",
+                        ),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          port = value;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () async {
+                    const url = 'https://github.com/ecrax/streamdeck';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                  child: Text(
+                    "Need help?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                color: Colors.blue,
-                onPressed: () async {
-                  if (ip != null && port != null) {
-                    socket = await Socket.connect(ip, int.parse(port));
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DeckScreen(
-                          socket: socket,
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              ButtonTheme(
+                minWidth: MediaQuery.of(context).size.width,
+                height: 50,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7)),
+                  child: Text(
+                    "Connect",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                  color: Color(0xFF5E5CE6),
+                  onPressed: () async {
+                    if (ip != null && port != null) {
+                      socket = await Socket.connect(ip, int.parse(port));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DeckScreen(
+                            socket: socket,
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                },
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           ),
