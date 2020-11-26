@@ -10,10 +10,8 @@ class DeckButton extends StatefulWidget {
   DeckButton({
     @required this.id,
     @required this.socket,
+    @required this.loadedData,
     this.onTap,
-    @required this.function,
-    this.addData = "1",
-    this.acticated = true,
   });
 
   final int id;
@@ -21,9 +19,7 @@ class DeckButton extends StatefulWidget {
 
   final Function onTap;
 
-  final dynamic function;
-  final dynamic addData;
-  final bool acticated; // acticated = on
+  final List loadedData;
 
   @override
   _DeckButtonState createState() => _DeckButtonState();
@@ -50,9 +46,18 @@ class _DeckButtonState extends State<DeckButton> {
   @override
   void initState() {
     super.initState();
-    currentFunction = widget.function;
-    additinalData = widget.addData;
-    activated = widget.acticated;
+
+    if (widget.id == 18) {
+      currentFunction = Functionality.disconnect;
+      additinalData = "";
+    } else {
+      currentFunction = widget.loadedData[widget.id]["functionality"] ??
+          Functionality.switchScene;
+      additinalData = widget.loadedData[widget.id]["additionalData"] ??
+          widget.id.toString();
+    }
+
+    activated = widget.loadedData[widget.id]["activated"] ?? true;
     socket = widget.socket;
 
     _setImages();
@@ -119,8 +124,11 @@ class _DeckButtonState extends State<DeckButton> {
                                 _setImages();
                               });
 
-                              Hive.box("prefs").put("${widget.id.toString()}",
-                                  ["muteAudio", additinalData.toString()]);
+                              Hive.box("prefs").put("${widget.id.toString()}", [
+                                "muteAudio",
+                                additinalData.toString(),
+                                activated
+                              ]);
                             } else {
                               // Warn user
                             }
@@ -191,8 +199,11 @@ class _DeckButtonState extends State<DeckButton> {
                               _setImages();
                             });
 
-                            Hive.box("prefs").put("${widget.id.toString()}",
-                                ["switchScene", additinalData.toString()]);
+                            Hive.box("prefs").put("${widget.id.toString()}", [
+                              "switchScene",
+                              additinalData.toString(),
+                              activated
+                            ]);
 
                             print(widget.id);
                             print(Hive.box("prefs").get(widget.id.toString()));
@@ -250,8 +261,11 @@ class _DeckButtonState extends State<DeckButton> {
                                 _setImages();
                               });
 
-                              Hive.box("prefs").put("${widget.id.toString()}",
-                                  ["hideSource", additinalData.toString()]);
+                              Hive.box("prefs").put("${widget.id.toString()}", [
+                                "hideSource",
+                                additinalData.toString(),
+                                activated
+                              ]);
                             } else {
                               // Warn user
                             }
@@ -284,8 +298,8 @@ class _DeckButtonState extends State<DeckButton> {
                 _setImages();
               });
 
-              Hive.box("prefs")
-                  .put("${widget.id.toString()}", ["disconnect", ""]);
+              Hive.box("prefs").put(
+                  "${widget.id.toString()}", ["disconnect", "", activated]);
             },
           ),
         ],
@@ -294,6 +308,11 @@ class _DeckButtonState extends State<DeckButton> {
             setState(() {
               activated = !activated;
             });
+            Hive.box("prefs").put("${widget.id.toString()}", [
+              currentFunction.toString().replaceAll(r"Functionality.", ""),
+              additinalData.toString(),
+              activated
+            ]);
           }
 
           // send: "s_hidetest" | "s_unhidetest"
@@ -324,11 +343,11 @@ class _DeckButtonState extends State<DeckButton> {
 
           _setImages();
 
-          /* print("Functionality: $currentFunction");
+          print("Functionality: $currentFunction");
           print("Additional Data: $additinalData");
           print("Id: ${widget.id}");
           print("Activated: $activated");
-          print("\n"); */
+          print("\n");
         },
         child: Container(
           margin: EdgeInsets.all(7),
