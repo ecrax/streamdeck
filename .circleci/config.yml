@@ -1,10 +1,14 @@
 version: 2.1
 jobs:
-  build:
+  build-apk:
     docker:
       - image: cirrusci/flutter
     steps:
       - checkout
       - run: flutter doctor
       - run: flutter test 
-      - run: flutter -v build apk --split-per-abi --release
+      - run: flutter build apk --split-per-abi --release
+  upload-artifacts:
+    steps:
+      - store_artifacts:
+            path: /tmp/artifacts
