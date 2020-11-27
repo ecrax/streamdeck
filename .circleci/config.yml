@@ -7,6 +7,6 @@ jobs:
       - checkout
       - run: flutter doctor
       - run: flutter test 
-      - run: flutter build apk --split-per-abi --release
+      - run: flutter build apk --release
       - store_artifacts:
-            path: /tmp/artifacts
+            path: build/app/outputs/flutter-apk/
