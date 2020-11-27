@@ -8,7 +8,5 @@ jobs:
       - run: flutter doctor
       - run: flutter test 
       - run: flutter build apk --split-per-abi --release
-  upload-artifacts:
-    steps:
       - store_artifacts:
             path: /tmp/artifacts
