@@ -8,7 +8,6 @@ import subprocess
 c_port = ""
 c_ipA = ""
 stopServer = False
-status = "offline"
 runServer = True
 
 
@@ -44,7 +43,6 @@ def start():
 		#os.system('cmd /k ' + cmd)
 		pass
 	"""
-
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.settimeout(5)
         if c_ipA != "" and c_port != "":
@@ -65,7 +63,7 @@ def start():
         global runServer
         global stopServer
         while runServer:
-            print("running")
+            print("Server Running...")
             try:
                 conn, addr = s.accept()
                 conn.settimeout(5)
@@ -79,12 +77,6 @@ def start():
                                 break
 
                             msg = msg.decode(FORMAT)
-
-                            print(msg)
-
-                            # mute mic, desktop (todo)
-                            # switch scene (index)
-                            # hide sources (by name)
 
                             if "scene" in msg:
                                 try:
@@ -115,9 +107,7 @@ def start():
                             elif "s_hide" in msg:
                                 try:
                                     hsource = str(msg[6:])
-                                    print(hsource)
                                     source = obs.obs_get_source_by_name(hsource)
-                                    print(source)
                                     if source is not None:
                                         obs.obs_source_set_enabled(source, False)
                                 except:
@@ -131,7 +121,36 @@ def start():
                                 except:
                                     pass
 
-                            if "stop" in msg:
+                            elif "st_start" in msg:
+                                try:
+                                    obs.obs_frontend_streaming_start()
+                                except:
+                                    pass
+                            elif "st_stop" in msg:
+                                try:
+                                    obs.obs_frontend_streaming_stop()
+                                except:
+                                    pass
+                            elif "re_start" in msg:
+                                try:
+                                    obs.obs_frontend_recording_start()
+                                except:
+                                    pass
+                            elif "re_stop" in msg:
+                                try:
+                                    obs.obs_frontend_recording_stop()
+                                except:
+                                    pass
+                            elif "re_pause" in msg:
+                                try:
+                                    if obs.obs_frontend_recording_paused():
+                                        obs.obs_frontend_recording_pause(False)
+                                    else:
+                                        obs.obs_frontend_recording_pause(True)
+                                except:
+                                    pass
+
+                            if "server_stop" in msg:
                                 connected = False
                                 runServer = False
                                 stopServer = False
@@ -166,28 +185,20 @@ def startstop_server(prps, prop):
 
 def script_description():
     return (
-        "Status: Server is "
-        + status
-        + "\n \nConnect to "
+        "Connect to "
         + getIP()
         + " on Port "
         + str(PORT)
-        + "\n \nor use custom values:"
+        + "\n \nor use custom values if you want to use another port or the given ip adress is incorrect:"
     )
 
 
 def script_update(settings):
-    print(threading.active_count())
-
     global c_ipA
     global c_port
 
     c_ipA = obs.obs_data_get_string(settings, "c_ipA")
     c_port = obs.obs_data_get_string(settings, "c_port")
-
-
-def script_defaults(settings):
-    pass
 
 
 def script_properties():

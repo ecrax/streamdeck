@@ -39,6 +39,12 @@ class _DeckButtonState extends State<DeckButton> {
     "unhide": AssetImage("assets/images/Visible.png"),
     "switchScene": AssetImage("assets/images/Switch Scenes.png"),
     "disconnect": AssetImage("assets/images/Disconnect.png"),
+    "startRecording": AssetImage("assets/images/Start Recording.png"),
+    "stopRecording": AssetImage("assets/images/Stop Recording.png"),
+    "pauseRecording": AssetImage("assets/images/Pause Recording.png"),
+    "resumeRecording": AssetImage("assets/images/Resume Recording.png"),
+    "startStream": AssetImage("assets/images/Start Streaming.png"),
+    "stopStream": AssetImage("assets/images/Stop Streaming.png"),
   };
 
   Socket socket;
@@ -47,14 +53,16 @@ class _DeckButtonState extends State<DeckButton> {
   void initState() {
     super.initState();
 
-    if (widget.id == 18) {
+    currentFunction = widget.loadedData[widget.id]["functionality"] ??
+        Functionality.switchScene;
+    additinalData =
+        widget.loadedData[widget.id]["additionalData"] ?? widget.id.toString();
+
+    if (widget.id == 18 &&
+        widget.loadedData[widget.id]["functionality"] == null &&
+        widget.loadedData[widget.id]["additionalData"] == null) {
       currentFunction = Functionality.disconnect;
       additinalData = "";
-    } else {
-      currentFunction = widget.loadedData[widget.id]["functionality"] ??
-          Functionality.switchScene;
-      additinalData = widget.loadedData[widget.id]["additionalData"] ??
-          widget.id.toString();
     }
 
     activated = widget.loadedData[widget.id]["activated"] ?? true;
@@ -77,6 +85,21 @@ class _DeckButtonState extends State<DeckButton> {
         currentImage = images["unhide"];
       } else if (currentFunction == Functionality.disconnect) {
         currentImage = images["disconnect"];
+      } else if (currentFunction == Functionality.toggleRecording &&
+          !activated) {
+        currentImage = images["stopRecording"];
+      } else if (currentFunction == Functionality.toggleRecording &&
+          activated) {
+        currentImage = images["startRecording"];
+      } else if (currentFunction == Functionality.toggleStream && !activated) {
+        currentImage = images["stopStream"];
+      } else if (currentFunction == Functionality.toggleStream && activated) {
+        currentImage = images["startStream"];
+      } else if (currentFunction == Functionality.pauseRecording &&
+          !activated) {
+        currentImage = images["resumeRecording"];
+      } else if (currentFunction == Functionality.pauseRecording && activated) {
+        currentImage = images["pauseRecording"];
       }
     });
   }
@@ -289,6 +312,48 @@ class _DeckButtonState extends State<DeckButton> {
             },
           ),
           FocusedMenuItem(
+            title: Text("Toggle Stream"),
+            trailingIcon: Icon(Icons.ac_unit),
+            onPressed: () {
+              setState(() {
+                currentFunction = Functionality.toggleStream;
+                additinalData = "";
+                _setImages();
+              });
+
+              Hive.box("prefs").put(
+                  "${widget.id.toString()}", ["toggleStream", "", activated]);
+            },
+          ),
+          FocusedMenuItem(
+            title: Text("Toggle Recording"),
+            trailingIcon: Icon(Icons.ac_unit),
+            onPressed: () {
+              setState(() {
+                currentFunction = Functionality.toggleRecording;
+                additinalData = "";
+                _setImages();
+              });
+
+              Hive.box("prefs").put(
+                  "${widget.id.toString()}", ["startRecording", "", activated]);
+            },
+          ),
+          FocusedMenuItem(
+            title: Text("Pause Recording"),
+            trailingIcon: Icon(Icons.ac_unit),
+            onPressed: () {
+              setState(() {
+                currentFunction = Functionality.pauseRecording;
+                additinalData = "";
+                _setImages();
+              });
+
+              Hive.box("prefs").put(
+                  "${widget.id.toString()}", ["pauseRecording", "", activated]);
+            },
+          ),
+          FocusedMenuItem(
             title: Text("Disconnect"),
             trailingIcon: Icon(Icons.phonelink_off),
             onPressed: () {
@@ -304,7 +369,11 @@ class _DeckButtonState extends State<DeckButton> {
           ),
         ],
         onPressed: () {
-          if (currentFunction != Functionality.switchScene) {
+          if (currentFunction == Functionality.muteAudio ||
+              currentFunction == Functionality.hideSource ||
+              currentFunction == Functionality.pauseRecording ||
+              currentFunction == Functionality.toggleRecording ||
+              currentFunction == Functionality.toggleStream) {
             setState(() {
               activated = !activated;
             });
@@ -339,6 +408,20 @@ class _DeckButtonState extends State<DeckButton> {
           } else if (currentFunction == Functionality.disconnect) {
             socket.close(); // Server is still online
             Navigator.pop(context);
+          } else if (currentFunction == Functionality.pauseRecording) {
+            socket.write("re_pause");
+          } else if (currentFunction == Functionality.toggleStream) {
+            if (!activated) {
+              socket.write("st_start");
+            } else {
+              socket.write("st_stop");
+            }
+          } else if (currentFunction == Functionality.toggleRecording) {
+            if (!activated) {
+              socket.write("re_start");
+            } else {
+              socket.write("re_stop");
+            }
           }
 
           _setImages();

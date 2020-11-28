@@ -84,6 +84,8 @@ class _ConnectScreenState extends State<ConnectScreen> {
                       ),
                       Expanded(
                         child: TextField(
+                          autofocus: false,
+                          keyboardAppearance: Brightness.dark,
                           decoration: InputDecoration(
                             hintText: "e.g. 192.186.420.69",
                             border: InputBorder.none,
@@ -129,6 +131,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
                       ),
                       Expanded(
                         child: TextField(
+                          autofocus: false,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "e.g. 6969",
@@ -189,12 +192,15 @@ class _ConnectScreenState extends State<ConnectScreen> {
                     color: Color(0xFF5E5CE6),
                     onPressed: () async {
                       if (ip != null && port != null) {
+                        FocusScope.of(context).unfocus();
                         socket = await Socket.connect(ip, int.parse(port));
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => DeckScreen(
                               socket: socket,
+                              ip: ip,
+                              port: port,
                             ),
                           ),
                         );

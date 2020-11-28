@@ -143,12 +143,12 @@ Widget horizontalLayout(List loadedData, DeckScreen widget) {
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 7,
+              id: 4,
               socket: widget.socket,
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 13,
+              id: 7,
               socket: widget.socket,
               loadedData: loadedData,
             ),
@@ -166,12 +166,12 @@ Widget horizontalLayout(List loadedData, DeckScreen widget) {
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 8,
+              id: 5,
               socket: widget.socket,
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 14,
+              id: 8,
               socket: widget.socket,
               loadedData: loadedData,
             ),
@@ -189,12 +189,12 @@ Widget horizontalLayout(List loadedData, DeckScreen widget) {
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 9,
+              id: 6,
               socket: widget.socket,
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 15,
+              id: 9,
               socket: widget.socket,
               loadedData: loadedData,
             ),
@@ -207,12 +207,12 @@ Widget horizontalLayout(List loadedData, DeckScreen widget) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             DeckButton(
-              id: 4,
+              id: 10,
               socket: widget.socket,
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 10,
+              id: 13,
               socket: widget.socket,
               loadedData: loadedData,
             ),
@@ -230,12 +230,12 @@ Widget horizontalLayout(List loadedData, DeckScreen widget) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             DeckButton(
-              id: 5,
+              id: 11,
               socket: widget.socket,
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 11,
+              id: 14,
               socket: widget.socket,
               loadedData: loadedData,
             ),
@@ -253,12 +253,12 @@ Widget horizontalLayout(List loadedData, DeckScreen widget) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             DeckButton(
-              id: 6,
+              id: 12,
               socket: widget.socket,
               loadedData: loadedData,
             ),
             DeckButton(
-              id: 12,
+              id: 15,
               socket: widget.socket,
               loadedData: loadedData,
             ),
