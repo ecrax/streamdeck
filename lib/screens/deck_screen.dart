@@ -94,8 +94,8 @@ class _DeckScreenState extends State<DeckScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
+    return SafeArea(
+      child: Container(
         child: Scaffold(
           backgroundColor: Colors.grey[900],
           drawer: Drawer(
@@ -118,7 +118,7 @@ class _DeckScreenState extends State<DeckScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 18,
+                            height: 16,
                           ),
                           Text(
                             "Warning:",
@@ -126,6 +126,9 @@ class _DeckScreenState extends State<DeckScreen> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
+                          ),
+                          SizedBox(
+                            height: 8,
                           ),
                           Text(
                             "Switching templates will reset any changes you made to the buttons, like assinging a new functionality or assigning a different scene to switch to. ",
@@ -248,13 +251,14 @@ class _DeckScreenState extends State<DeckScreen> {
               ), */
               color: Colors.grey[900],
             ),
-            padding: EdgeInsets.all(16),
+            //padding: EdgeInsets.all(16),
             child: OrientationBuilder(
               // ignore: missing_return
               builder: (context, orientation) {
                 if (orientation == Orientation.portrait) {
                   loadData();
-                  return verticalLayout(loadedData, widget);
+                  return verticalLayout(loadedData, widget, context);
+                  //return testLayout(context);
                 } else if (orientation == Orientation.landscape) {
                   loadData();
                   return horizontalLayout(loadedData, widget);

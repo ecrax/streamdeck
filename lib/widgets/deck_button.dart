@@ -106,371 +106,375 @@ class _DeckButtonState extends State<DeckButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: FocusedMenuHolder(
-        animateMenuItems: false,
-        menuWidth: MediaQuery.of(context).size.width * 0.50,
-        duration: Duration(milliseconds: 75),
-        menuItems: [
-          FocusedMenuItem(
-            title: Text("Mute Audio"),
-            trailingIcon: Icon(Icons.volume_off),
-            onPressed: () {
-              setState(() {
-                tempData = null;
-                // Show prompt to choose additional Data (Name of mic)
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text("Enter name of the audio track"),
-                      backgroundColor: Colors.white,
-                      content: StatefulBuilder(
-                        builder: (context, setState) {
-                          return TextField(
-                            onChanged: (value) {
-                              setState(() {
-                                tempData = value;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      actions: [
-                        FlatButton(
-                          onPressed: () {
-                            if (tempData != null) {
-                              setState(() {
-                                currentFunction = Functionality.muteAudio;
-                                additinalData = tempData;
-                                tempData = null;
-                                _setImages();
-                              });
+    double buttonHeight =
+        MediaQuery.of(context).orientation == Orientation.portrait
+            ? ((MediaQuery.of(context).size.height) / 6.25) - 6
+            : ((MediaQuery.of(context).size.width) / 6.25) - 6;
 
-                              Hive.box("prefs").put("${widget.id.toString()}", [
-                                "muteAudio",
-                                additinalData.toString(),
-                                activated
-                              ]);
-                            } else {
-                              // Warn user
-                            }
-
-                            Navigator.pop(context);
-                          },
-                          child: Text("OK"),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            tempData = null;
-                            Navigator.pop(context);
-                          },
-                          child: Text("Cancel"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              });
-            },
-          ),
-          FocusedMenuItem(
-            title: Text("Switch Scene"),
-            trailingIcon: Icon(Icons.switch_account),
-            onPressed: () {
-              setState(() {
-                tempData = null;
-                // Show prompt to choose additional Data (Index)
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text("Choose which scene to assign"),
-                      backgroundColor: Colors.white,
-                      content: StatefulBuilder(
-                        builder: (context, setState) {
-                          var items = new List<String>.generate(
-                            18,
-                            (i) => (i + 1).toString(),
-                          );
-
-                          return DropdownButton(
-                            items: items.map<DropdownMenuItem<String>>(
-                              (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              },
-                            ).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                tempData = value;
-                              });
-                            },
-                            value: tempData ?? "1",
-                          );
-                        },
-                      ),
-                      actions: [
-                        FlatButton(
-                          onPressed: () {
+    return FocusedMenuHolder(
+      animateMenuItems: false,
+      menuWidth: MediaQuery.of(context).size.width * 0.50,
+      duration: Duration(milliseconds: 75),
+      menuItems: [
+        FocusedMenuItem(
+          title: Text("Mute Audio"),
+          trailingIcon: Icon(Icons.volume_off),
+          onPressed: () {
+            setState(() {
+              tempData = null;
+              // Show prompt to choose additional Data (Name of mic)
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text("Enter name of the audio track"),
+                    backgroundColor: Colors.white,
+                    content: StatefulBuilder(
+                      builder: (context, setState) {
+                        return TextField(
+                          onChanged: (value) {
                             setState(() {
-                              currentFunction = Functionality.switchScene;
-                              additinalData = tempData ?? "1";
+                              tempData = value;
+                            });
+                          },
+                        );
+                      },
+                    ),
+                    actions: [
+                      FlatButton(
+                        onPressed: () {
+                          if (tempData != null) {
+                            setState(() {
+                              currentFunction = Functionality.muteAudio;
+                              additinalData = tempData;
                               tempData = null;
                               _setImages();
                             });
 
                             Hive.box("prefs").put("${widget.id.toString()}", [
-                              "switchScene",
+                              "muteAudio",
                               additinalData.toString(),
                               activated
                             ]);
+                          } else {
+                            // Warn user
+                          }
 
-                            print(widget.id);
-                            print(Hive.box("prefs").get(widget.id.toString()));
-
-                            Navigator.pop(context);
-                          },
-                          child: Text("OK"),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            tempData = null;
-                            Navigator.pop(context);
-                          },
-                          child: Text("Cancel"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              });
-            },
-          ),
-          FocusedMenuItem(
-            title: Text("Hide Source"),
-            trailingIcon: Icon(Icons.visibility_off),
-            onPressed: () {
-              setState(() {
-                tempData = null;
-                // Show prompt to choose additional Data (Title)
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text("Enter title of source"),
-                      backgroundColor: Colors.white,
-                      content: StatefulBuilder(
-                        builder: (context, setState) {
-                          return TextField(
-                            onChanged: (value) {
-                              setState(() {
-                                tempData = value;
-                              });
-                            },
-                          );
+                          Navigator.pop(context);
                         },
+                        child: Text("OK"),
                       ),
-                      actions: [
-                        FlatButton(
-                          onPressed: () async {
-                            if (tempData != null) {
-                              setState(() {
-                                currentFunction = Functionality.hideSource;
-                                additinalData = tempData;
-                                tempData = null;
-                                _setImages();
-                              });
-
-                              Hive.box("prefs").put("${widget.id.toString()}", [
-                                "hideSource",
-                                additinalData.toString(),
-                                activated
-                              ]);
-                            } else {
-                              // Warn user
-                            }
-
-                            Navigator.pop(context);
-                          },
-                          child: Text("OK"),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            tempData = null;
-                            Navigator.pop(context);
-                          },
-                          child: Text("Cancel"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              });
-            },
-          ),
-          FocusedMenuItem(
-            title: Text("Toggle Stream"),
-            trailingIcon: Icon(Icons.ac_unit),
-            onPressed: () {
-              setState(() {
-                currentFunction = Functionality.toggleStream;
-                additinalData = "";
-                _setImages();
-              });
-
-              Hive.box("prefs").put(
-                  "${widget.id.toString()}", ["toggleStream", "", activated]);
-            },
-          ),
-          FocusedMenuItem(
-            title: Text("Toggle Recording"),
-            trailingIcon: Icon(Icons.ac_unit),
-            onPressed: () {
-              setState(() {
-                currentFunction = Functionality.toggleRecording;
-                additinalData = "";
-                _setImages();
-              });
-
-              Hive.box("prefs").put(
-                  "${widget.id.toString()}", ["startRecording", "", activated]);
-            },
-          ),
-          FocusedMenuItem(
-            title: Text("Pause Recording"),
-            trailingIcon: Icon(Icons.ac_unit),
-            onPressed: () {
-              setState(() {
-                currentFunction = Functionality.pauseRecording;
-                additinalData = "";
-                _setImages();
-              });
-
-              Hive.box("prefs").put(
-                  "${widget.id.toString()}", ["pauseRecording", "", activated]);
-            },
-          ),
-          FocusedMenuItem(
-            title: Text("Disconnect"),
-            trailingIcon: Icon(Icons.phonelink_off),
-            onPressed: () {
-              setState(() {
-                currentFunction = Functionality.disconnect;
-                additinalData = "";
-                _setImages();
-              });
-
-              Hive.box("prefs").put(
-                  "${widget.id.toString()}", ["disconnect", "", activated]);
-            },
-          ),
-        ],
-        onPressed: () {
-          if (currentFunction == Functionality.muteAudio ||
-              currentFunction == Functionality.hideSource ||
-              currentFunction == Functionality.pauseRecording ||
-              currentFunction == Functionality.toggleRecording ||
-              currentFunction == Functionality.toggleStream) {
-            setState(() {
-              activated = !activated;
+                      FlatButton(
+                        onPressed: () {
+                          tempData = null;
+                          Navigator.pop(context);
+                        },
+                        child: Text("Cancel"),
+                      ),
+                    ],
+                  );
+                },
+              );
             });
-            Hive.box("prefs").put("${widget.id.toString()}", [
-              currentFunction.toString().replaceAll(r"Functionality.", ""),
-              additinalData.toString(),
-              activated
-            ]);
+          },
+        ),
+        FocusedMenuItem(
+          title: Text("Switch Scene"),
+          trailingIcon: Icon(Icons.switch_account),
+          onPressed: () {
+            setState(() {
+              tempData = null;
+              // Show prompt to choose additional Data (Index)
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text("Choose which scene to assign"),
+                    backgroundColor: Colors.white,
+                    content: StatefulBuilder(
+                      builder: (context, setState) {
+                        var items = new List<String>.generate(
+                          18,
+                          (i) => (i + 1).toString(),
+                        );
+
+                        return DropdownButton(
+                          items: items.map<DropdownMenuItem<String>>(
+                            (String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              tempData = value;
+                            });
+                          },
+                          value: tempData ?? "1",
+                        );
+                      },
+                    ),
+                    actions: [
+                      FlatButton(
+                        onPressed: () {
+                          setState(() {
+                            currentFunction = Functionality.switchScene;
+                            additinalData = tempData ?? "1";
+                            tempData = null;
+                            _setImages();
+                          });
+
+                          Hive.box("prefs").put("${widget.id.toString()}", [
+                            "switchScene",
+                            additinalData.toString(),
+                            activated
+                          ]);
+
+                          print(widget.id);
+                          print(Hive.box("prefs").get(widget.id.toString()));
+
+                          Navigator.pop(context);
+                        },
+                        child: Text("OK"),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          tempData = null;
+                          Navigator.pop(context);
+                        },
+                        child: Text("Cancel"),
+                      ),
+                    ],
+                  );
+                },
+              );
+            });
+          },
+        ),
+        FocusedMenuItem(
+          title: Text("Hide Source"),
+          trailingIcon: Icon(Icons.visibility_off),
+          onPressed: () {
+            setState(() {
+              tempData = null;
+              // Show prompt to choose additional Data (Title)
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text("Enter title of source"),
+                    backgroundColor: Colors.white,
+                    content: StatefulBuilder(
+                      builder: (context, setState) {
+                        return TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              tempData = value;
+                            });
+                          },
+                        );
+                      },
+                    ),
+                    actions: [
+                      FlatButton(
+                        onPressed: () async {
+                          if (tempData != null) {
+                            setState(() {
+                              currentFunction = Functionality.hideSource;
+                              additinalData = tempData;
+                              tempData = null;
+                              _setImages();
+                            });
+
+                            Hive.box("prefs").put("${widget.id.toString()}", [
+                              "hideSource",
+                              additinalData.toString(),
+                              activated
+                            ]);
+                          } else {
+                            // Warn user
+                          }
+
+                          Navigator.pop(context);
+                        },
+                        child: Text("OK"),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          tempData = null;
+                          Navigator.pop(context);
+                        },
+                        child: Text("Cancel"),
+                      ),
+                    ],
+                  );
+                },
+              );
+            });
+          },
+        ),
+        FocusedMenuItem(
+          title: Text("Toggle Stream"),
+          trailingIcon: Icon(Icons.ac_unit),
+          onPressed: () {
+            setState(() {
+              currentFunction = Functionality.toggleStream;
+              additinalData = "";
+              _setImages();
+            });
+
+            Hive.box("prefs").put(
+                "${widget.id.toString()}", ["toggleStream", "", activated]);
+          },
+        ),
+        FocusedMenuItem(
+          title: Text("Toggle Recording"),
+          trailingIcon: Icon(Icons.ac_unit),
+          onPressed: () {
+            setState(() {
+              currentFunction = Functionality.toggleRecording;
+              additinalData = "";
+              _setImages();
+            });
+
+            Hive.box("prefs").put(
+                "${widget.id.toString()}", ["startRecording", "", activated]);
+          },
+        ),
+        FocusedMenuItem(
+          title: Text("Pause Recording"),
+          trailingIcon: Icon(Icons.ac_unit),
+          onPressed: () {
+            setState(() {
+              currentFunction = Functionality.pauseRecording;
+              additinalData = "";
+              _setImages();
+            });
+
+            Hive.box("prefs").put(
+                "${widget.id.toString()}", ["pauseRecording", "", activated]);
+          },
+        ),
+        FocusedMenuItem(
+          title: Text("Disconnect"),
+          trailingIcon: Icon(Icons.phonelink_off),
+          onPressed: () {
+            setState(() {
+              currentFunction = Functionality.disconnect;
+              additinalData = "";
+              _setImages();
+            });
+
+            Hive.box("prefs")
+                .put("${widget.id.toString()}", ["disconnect", "", activated]);
+          },
+        ),
+      ],
+      onPressed: () {
+        if (currentFunction == Functionality.muteAudio ||
+            currentFunction == Functionality.hideSource ||
+            currentFunction == Functionality.pauseRecording ||
+            currentFunction == Functionality.toggleRecording ||
+            currentFunction == Functionality.toggleStream) {
+          setState(() {
+            activated = !activated;
+          });
+          Hive.box("prefs").put("${widget.id.toString()}", [
+            currentFunction.toString().replaceAll(r"Functionality.", ""),
+            additinalData.toString(),
+            activated
+          ]);
+        }
+
+        // send: "s_hidetest" | "s_unhidetest"
+        // send: "s_mutetest2" | "s_unmutetest2"
+        // send: "scene1"
+
+        if (currentFunction == Functionality.hideSource &&
+            additinalData != null) {
+          if (!activated) {
+            socket.write("s_hide$additinalData");
+          } else {
+            socket.write("s_unhide$additinalData");
           }
-
-          // send: "s_hidetest" | "s_unhidetest"
-          // send: "s_mutetest2" | "s_unmutetest2"
-          // send: "scene1"
-
-          if (currentFunction == Functionality.hideSource &&
-              additinalData != null) {
-            if (!activated) {
-              socket.write("s_hide$additinalData");
-            } else {
-              socket.write("s_unhide$additinalData");
-            }
-          } else if (currentFunction == Functionality.muteAudio &&
-              additinalData != null) {
-            if (!activated) {
-              socket.write("s_mute$additinalData");
-            } else {
-              socket.write("s_unmute$additinalData");
-            }
-          } else if (currentFunction == Functionality.switchScene &&
-              additinalData != null) {
-            socket.write("scene${(int.parse(additinalData) - 1).toString()}");
-          } else if (currentFunction == Functionality.disconnect) {
-            socket.close(); // Server is still online
-            Navigator.pop(context);
-          } else if (currentFunction == Functionality.pauseRecording) {
-            socket.write("re_pause");
-          } else if (currentFunction == Functionality.toggleStream) {
-            if (!activated) {
-              socket.write("st_start");
-            } else {
-              socket.write("st_stop");
-            }
-          } else if (currentFunction == Functionality.toggleRecording) {
-            if (!activated) {
-              socket.write("re_start");
-            } else {
-              socket.write("re_stop");
-            }
+        } else if (currentFunction == Functionality.muteAudio &&
+            additinalData != null) {
+          if (!activated) {
+            socket.write("s_mute$additinalData");
+          } else {
+            socket.write("s_unmute$additinalData");
           }
+        } else if (currentFunction == Functionality.switchScene &&
+            additinalData != null) {
+          socket.write("scene${(int.parse(additinalData) - 1).toString()}");
+        } else if (currentFunction == Functionality.disconnect) {
+          socket.close(); // Server is still online
+          Navigator.pop(context);
+        } else if (currentFunction == Functionality.pauseRecording) {
+          socket.write("re_pause");
+        } else if (currentFunction == Functionality.toggleStream) {
+          if (!activated) {
+            socket.write("st_start");
+          } else {
+            socket.write("st_stop");
+          }
+        } else if (currentFunction == Functionality.toggleRecording) {
+          if (!activated) {
+            socket.write("re_start");
+          } else {
+            socket.write("re_stop");
+          }
+        }
 
-          _setImages();
+        _setImages();
 
-          print("Functionality: $currentFunction");
-          print("Additional Data: $additinalData");
-          print("Id: ${widget.id}");
-          print("Activated: $activated");
-          print("\n");
-        },
-        child: Container(
-          margin: EdgeInsets.all(7),
-          decoration: BoxDecoration(
-            //color: activated ? Colors.lightBlue : Colors.red,
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-              image: currentImage,
-              fit: BoxFit.cover,
-            ),
+        print("Functionality: $currentFunction");
+        print("Additional Data: $additinalData");
+        print("Id: ${widget.id}");
+        print("Activated: $activated");
+        print("\n");
+      },
+      child: Container(
+        height: buttonHeight,
+        width: buttonHeight,
+        margin: EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(
+            image: currentImage,
+            fit: BoxFit.cover,
           ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                /* Text(
-                  widget.id.toString(),
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: Colors.white,
-                  ),
-                ), */
-                Text(
-                  additinalData.toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              /* Text(
+                widget.id.toString(),
+                style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.white,
                 ),
-                SizedBox(
-                  height: 8,
-                )
-                /* Text(
-                  currentFunction.toString().replaceAll(r"Functionality.", ""),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ), */
-              ],
-            ),
+              ), */
+              Text(
+                additinalData.toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              )
+              /* Text(
+                currentFunction.toString().replaceAll(r"Functionality.", ""),
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ), */
+            ],
           ),
         ),
       ),
