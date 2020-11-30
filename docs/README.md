@@ -1,17 +1,22 @@
 # streamdeck
 
-A new Flutter project.
+> An alternative to an Elgato Stream Deck.
 
-## Getting Started
+## What is this about?
 
-This project is a starting point for a Flutter application.
+Streamdeck is an app and a python script, developed by two students from Germany, wich allows you to use your Phone to remotely controll the open source screen recording program OBS. The app is built entirely with the open source framework Flutter. The python script on the other hand serves the server and runs inside of OBS to handle the requsts coming from the app.
 
-A few resources to get you started if this is your first Flutter project:
+## Motivation
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+We always liked the idea of streaming, so we wanted to try it as well. The only problem was that, even though we had two or even three monitors, we would get lost really quickly in our streaming setup. That is where normally an Elgato Stream Deck would fit in perfectly. But of course we did not want to pay for it, so we built it ourselves. And this is how Streamdeck was born.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Why Streamdeck?
 
+- Open Source
+- Built only with open source technology
+- No big tech companies involved
+- Nice and intuitive interface
+- Resource-efficient
+  - No software running in the background, except a small Python script
+- Easy setup
+- No external software to install
