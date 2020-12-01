@@ -6,10 +6,6 @@
 
 Streamdeck is an app and a python script, developed by two students from Germany, wich allows you to use your Phone to remotely controll the open source screen recording program OBS. The app is built entirely with the open source framework Flutter. The python script on the other hand serves the server and runs inside of OBS to handle the requsts coming from the app.
 
-## Motivation
-
-We always liked the idea of streaming, so we wanted to try it as well. The only problem was that, even though we had two or even three monitors, we would get lost really quickly in our streaming setup. That is where normally an Elgato Stream Deck would fit in perfectly. But of course we did not want to pay for it, so we built it ourselves. And this is how Streamdeck was born.
-
 ## Why Streamdeck?
 
 - Open Source
@@ -20,3 +16,40 @@ We always liked the idea of streaming, so we wanted to try it as well. The only 
   - No software running in the background, except a small Python script
 - Easy setup
 - No external software to install
+
+## Motivation
+
+We always liked the idea of streaming, so we wanted to try it as well. The only problem was that, even though we had two or even three monitors, we would get lost really quickly in our streaming setup. That is where normally an Elgato Stream Deck would fit in perfectly. But of course we did not want to pay for it, so we built it ourselves. And this is how Streamdeck was born.
+
+## Features
+
+- Switch scenes
+- Start and stop streams
+- Turn sources on and off
+- Mute audio
+- Start, stop and pause recordings
+- Cross platform
+  - App:
+    - Android
+    - (iOS) **coming soon**
+  - Computer:
+    - Linux
+    - Windows
+    - macOS
+
+## Roadmap / TODO
+
+> Contributions and Suggestions are very welcome :)
+
+- iOS support
+- iOS documentation
+- Add images to this documentation
+
+All todos are on our GitHub pages issue tracher ([here](https://github.com/ecrax/streamdeck/issues))
+
+## Community
+
+The creators and maintainers of this project are Jonathan Kron and Leo Kling. Here are their socials:
+
+- Jonathan Kron: [YouTube]("https://www.youtube.com/jonathankron")
+- Leo Kling: [YouTube]("https://www.youtube.com/ecrax_official")
