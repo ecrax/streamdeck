@@ -23,11 +23,12 @@ We always liked the idea of streaming, so we wanted to try it as well. The only 
 
 ## Features
 
-- Switch scenes
-- Start and stop streams
-- Turn sources on and off
-- Mute audio
-- Start, stop and pause recordings
+- Muting audio
+- Switching to a scene
+- Hiding a source
+- Toggle your stream on and off
+- Toggle your recording on and off
+- Pause and resume your recording
 - Cross platform
   - App:
     - Android

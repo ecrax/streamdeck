@@ -2,4 +2,4 @@
 
 - [Home](/)
 - [Getting Started](quickstart.md)
-- [Contributing](contributing.md)
+- [Contribution](contributing.md)
