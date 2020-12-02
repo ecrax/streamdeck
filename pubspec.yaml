@@ -32,7 +32,14 @@ dependencies:
   hive_flutter: ^0.3.1
   url_launcher: ^5.7.10
 
+flutter_icons:
+  image_path_android: "assets/images/AppIcon.png"
+  image_path_ios: "assets/images/AppIcon.png"
+  android: true
+  ios: true
+
 dev_dependencies:
+  flutter_launcher_icons: ^0.8.1
   flutter_test:
     sdk: flutter
 
