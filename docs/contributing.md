@@ -16,4 +16,4 @@ You are very welcome to contribute to this project, that is why it is open sourc
 3. Remove all prints statements from your code
 4. Try to refactor your code as far as you can
 
-When you completed all the steps you are very welcome to create a Pull Request
+?> When you completed all the steps you are very welcome to create a Pull Request
