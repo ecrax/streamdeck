@@ -2,7 +2,7 @@
 
 ### Download
 
-- Go to the [GitHub releases](https://github.com/ecrax/streamdeck/releases) section and download the newest stable release on / for your phone.
+- Go to the [GitHub releases](https://github.com/ecrax/streamdeck/releases) section and download the newest stable release on/for your phone.
 
 - Download the Python script that comes with the newest stable release from the [GitHub releases](https://github.com/ecrax/streamdeck/releases) section.
 
@@ -10,7 +10,7 @@
 
 #### Phone
 
-- Install the downloaded apk or plist file (depending on your phone OS). You may have to do some additional configuration, because it is an app that is not on the Google Play Store nor on the Apple App Store.
+- Install the downloaded apk or plist file (depending on your phone OS). You may have to do some additional configuration because it is an app that is not on the Google Play Store nor the Apple App Store.
 
 ?> On Android to install from unknown sources you can follow [this](https://www.verizon.com/support/knowledge-base-222186/) guide.
 
@@ -22,7 +22,7 @@
 - Open OBS, go to **Tools** -> **Scripts**
 - In the window that opens, click on the small plus in the bottom left corner and choose the Python script (_server.py_)
 
-!> You may have to add a firewall exception for incomming connections to your OS for the port you want to use.
+!> You may have to add a firewall exception for incoming connections to your OS for the port you want to use.
 
 ### Usage
 

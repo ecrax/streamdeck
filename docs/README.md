@@ -4,7 +4,7 @@
 
 ## What is this about?
 
-Streamdeck is an app and a python script, developed by two students from Germany, wich allows you to use your Phone to remotely controll the open source screen recording program OBS. The app is built entirely with the open source framework Flutter. The python script on the other hand serves the server and runs inside of OBS to handle the requsts coming from the app.
+Streamdeck is an app and a python script, developed by two students from Germany, which allows you to use your Phone to remotely control the open-source screen recording program OBS. The app is built entirely with the open-source framework Flutter. The python script on the other hand serves the server and runs inside of OBS to handle the requests coming from the app.
 
 ## Why Streamdeck?
 
@@ -19,7 +19,7 @@ Streamdeck is an app and a python script, developed by two students from Germany
 
 ## Motivation
 
-We always liked the idea of streaming, so we wanted to try it as well. The only problem was that, even though we had two or even three monitors, we would get lost really quickly in our streaming setup. That is where normally an Elgato Stream Deck would fit in perfectly. But of course we did not want to pay for it, so we built it ourselves. And this is how Streamdeck was born.
+We always liked the idea of streaming, so we wanted to try it as well. The only problem was that, even though we had two or even three monitors, we would get lost quickly in our streaming setup. That is where normally an Elgato Stream Deck would fit in perfectly. But of course, we did not want to pay for it, so we built it ourselves. And this is how Streamdeck was born.
 
 ## Features
 
@@ -29,7 +29,7 @@ We always liked the idea of streaming, so we wanted to try it as well. The only 
 - Toggle your stream on and off
 - Toggle your recording on and off
 - Pause and resume your recording
-- Cross platform
+- Cross-platform
   - App:
     - Android
     - (iOS) **coming soon**
@@ -46,7 +46,7 @@ We always liked the idea of streaming, so we wanted to try it as well. The only 
 - iOS documentation
 - Add images to this documentation
 
-All todos are on our GitHub pages issue tracher ([here](https://github.com/ecrax/streamdeck/issues))
+All todos are on our GitHub pages issue tracker ([here](https://github.com/ecrax/streamdeck/issues))
 
 ## Community
 

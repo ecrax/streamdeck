@@ -1,13 +1,13 @@
 # Contributing Guidelines
 
-You are very welcome to contribute to this project, that is why it is open source. But to ensure a high quality product we only accept serious Pull Requests and ask you to test your changes before you create a PR.
+You are very welcome to contribute to this project, that is why it is open source. But to ensure a high-quality product we only accept serious Pull Requests and ask you to test your changes before you create a PR.
 
 ## Steps to contribute
 
 1. Fork and clone the repo from `https://github.com/product-ride/styled-wind`
 2. Make necessary changes within the `lib` directory.
 3. Run tests to make sure nothing breaks
-4. Follow below steps and test your changes before creating the PR
+4. Follow the below steps and test your changes before creating the PR
 
 ## Steps to run before creating a PR
 
