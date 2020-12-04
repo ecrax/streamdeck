@@ -20,6 +20,10 @@ Streamdeck is an app and a python script, developed by two students from Germany
 - Easy setup
 - No external software to install
 
+## Documentation
+
+You will find the entire documentation, covering various topics, [here](https://ecrax.github.io/streamdeck/#/).
+
 ## Motivation
 
 We always liked the idea of streaming, so we wanted to try it as well. The only problem was that, even though we had two or even three monitors, we would get lost quickly in our streaming setup. That is where normally an Elgato Stream Deck would fit in perfectly. But of course, we did not want to pay for it, so we built it ourselves. And this is how Streamdeck was born.
