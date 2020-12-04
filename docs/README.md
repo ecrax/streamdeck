@@ -52,5 +52,5 @@ All todos are on our GitHub pages issue tracker ([here](https://github.com/ecrax
 
 The creators and maintainers of this project are Jonathan Kron and Leo Kling. Here are their socials:
 
-- Jonathan Kron: [YouTube]("https://www.youtube.com/jonathankron")
-- Leo Kling: [YouTube]("https://www.youtube.com/ecrax_official")
+- Jonathan Kron: [YouTube](https://www.youtube.com/jonathankron)
+- Leo Kling: [YouTube](https://www.youtube.com/ecrax_official)

@@ -66,8 +66,8 @@ You can find a guide on how you can contribute [here](https://ecrax.github.io/st
 
 The creators and maintainers of this project are Jonathan Kron and Leo Kling. Here are their socials:
 
-- Jonathan Kron: [YouTube]("https://www.youtube.com/jonathankron")
-- Leo Kling: [YouTube]("https://www.youtube.com/ecrax_official")
+- Jonathan Kron: [YouTube](https://www.youtube.com/jonathankron)
+- Leo Kling: [YouTube](https://www.youtube.com/ecrax_official)
 
 ## License
 
