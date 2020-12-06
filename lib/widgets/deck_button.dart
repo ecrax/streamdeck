@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:hive/hive.dart';
-import 'package:streamdeck/utils/enums.dart';
+import 'package:Streamdeck/utils/enums.dart';
 
 class DeckButton extends StatefulWidget {
   DeckButton({

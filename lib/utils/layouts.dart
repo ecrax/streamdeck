@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streamdeck/widgets/deck_button.dart';
-import 'package:streamdeck/screens/deck_screen.dart';
+import 'package:Streamdeck/widgets/deck_button.dart';
+import 'package:Streamdeck/screens/deck_screen.dart';
 
 Widget verticalLayout(
     List loadedData, DeckScreen widget, BuildContext context) {

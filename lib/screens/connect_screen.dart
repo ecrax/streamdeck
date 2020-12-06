@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:streamdeck/screens/deck_screen.dart';
+import 'package:Streamdeck/screens/deck_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConnectScreen extends StatefulWidget {
@@ -159,7 +159,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () async {
-                      const url = 'https://github.com/ecrax/streamdeck';
+                      const url = 'https://ecrax.github.io/streamdeck/#/';
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {

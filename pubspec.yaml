@@ -1,5 +1,5 @@
-name: streamdeck
-description: A new Flutter project.
+name: Streamdeck
+description: An alternative to an Elgato Stream Deck.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -33,10 +33,12 @@ dependencies:
   url_launcher: ^5.7.10
 
 flutter_icons:
-  image_path_android: "assets/images/AppIcon.png"
-  image_path_ios: "assets/images/AppIcon.png"
   android: true
   ios: true
+  image_path_android: "assets/icons/Icon.png"
+  image_path_ios: "assets/icons/Icon.png"
+  adaptive_icon_background: assets/icons/Icon_BG.png
+  adaptive_icon_foreground: assets/icons/Icon_FG.png
 
 dev_dependencies:
   flutter_launcher_icons: ^0.8.1

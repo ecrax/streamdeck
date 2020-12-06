@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:streamdeck/screens/connect_screen.dart';
+import 'package:Streamdeck/screens/connect_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

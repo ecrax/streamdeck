@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:streamdeck/utils/enums.dart';
-import 'package:streamdeck/utils/layouts.dart';
+import 'package:Streamdeck/utils/enums.dart';
+import 'package:Streamdeck/utils/layouts.dart';
 
 class DeckScreen extends StatefulWidget {
   const DeckScreen({
