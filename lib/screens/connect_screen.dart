@@ -12,8 +12,10 @@ class ConnectScreen extends StatefulWidget {
 class _ConnectScreenState extends State<ConnectScreen> {
   Socket socket;
 
-  String ip;
-  String port;
+  String ip = "";
+  String port = "";
+
+  String error = "";
 
   @override
   void dispose() {
@@ -191,21 +193,70 @@ class _ConnectScreenState extends State<ConnectScreen> {
                     ),
                     color: Color(0xFF5E5CE6),
                     onPressed: () async {
-                      if (ip != null && port != null) {
-                        FocusScope.of(context).unfocus();
-                        socket = await Socket.connect(ip, int.parse(port));
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DeckScreen(
-                              socket: socket,
-                              ip: ip,
-                              port: port,
+                      if (ip != "" && port != "") {
+                        try {
+                          FocusScope.of(context).unfocus();
+
+                          socket = await Socket.connect(
+                            ip,
+                            int.parse(port),
+                            timeout: Duration(seconds: 3),
+                          );
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DeckScreen(
+                                socket: socket,
+                                ip: ip,
+                                port: port,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+
+                          /* setState(() {
+                            error =
+                                "Connection refused (check firewall) or server is offline";
+                          }); */
+                        } on SocketException catch (d) {
+                          setState(() {
+                            error = d.message;
+                          });
+                        } catch (e) {
+                          setState(() {
+                            error = e.toString();
+                          });
+                        }
+                      } else if (port == "" && ip == "") {
+                        setState(() {
+                          error = "Please enter an IP and Port";
+                        });
+                        ip = "";
+                        port = "";
+                      } else if (ip == "") {
+                        setState(() {
+                          error = "Please enter an IP";
+                        });
+                        ip = "";
+                        port = "";
+                      } else if (port == "") {
+                        setState(() {
+                          error = "Please enter a Port";
+                        });
+                        ip = "";
+                        port = "";
                       }
                     },
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  error,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
                   ),
                 ),
               ],
